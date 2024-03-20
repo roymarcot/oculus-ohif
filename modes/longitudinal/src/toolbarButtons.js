@@ -76,6 +76,307 @@ function _createSetToolActiveCommands(toolName) {
 }
 
 const toolbarButtons = [
+  // Window Level + Presets...
+  {
+    id: 'WindowLevel',
+    type: 'ohif.splitButton',
+    props: {
+      groupId: 'WindowLevel',
+      primary: _createToolButton(
+        'WindowLevel',
+        'tool-window-level',
+        'Window Level',
+        [
+          {
+            commandName: 'setToolActive',
+            commandOptions: {
+              toolName: 'WindowLevel',
+            },
+            context: 'CORNERSTONE',
+          },
+        ],
+        'Window Level'
+      ),
+      secondary: {
+        icon: 'chevron-down',
+        label: 'W/L Manual',
+        isActive: true,
+        tooltip: 'W/L Presets',
+      },
+      isAction: true, // ?
+      renderer: WindowLevelMenuItem,
+      items: [
+        _createWwwcPreset(1, 'Soft tissue', '400 / 40'),
+        _createWwwcPreset(2, 'Lung', '1500 / -600'),
+        _createWwwcPreset(3, 'Liver', '150 / 90'),
+        _createWwwcPreset(4, 'Bone', '2500 / 480'),
+        _createWwwcPreset(5, 'Brain', '80 / 40'),
+        {
+          id: '6',
+          title: 'Abdomen',
+          subtitle: '350 / 50',
+          type: 'action',
+          commands: [
+            {
+              commandName: 'setWindowLevel',
+              commandOptions: {
+                description: 'Abdomen',
+                window: '350',
+                level: '50',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+        },
+        {
+          id: '7',
+          title: 'Stroke 1',
+          subtitle: '8 / 32',
+          type: 'action',
+          commands: [
+            {
+              commandName: 'setWindowLevel',
+              commandOptions: {
+                description: 'Stroke 1',
+                window: '8',
+                level: '32',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+        },
+        {
+          id: '8',
+          title: 'Stroke 2',
+          subtitle: '50 / 40',
+          type: 'action',
+          commands: [
+            {
+              commandName: 'setWindowLevel',
+              commandOptions: {
+                description: 'Stroke 2',
+                window: '50',
+                level: '40',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+        },
+        {
+          id: '9',
+          title: 'Huesos temporales',
+          subtitle: '1800 / 400',
+          type: 'action',
+          commands: [
+            {
+              commandName: 'setWindowLevel',
+              commandOptions: {
+                description: 'Huesos temporales',
+                window: '1800',
+                level: '400',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+        },
+        {
+          id: '10',
+          title: 'Subdural 2',
+          subtitle: '4000 / 700',
+          type: 'action',
+          commands: [
+            {
+              commandName: 'setWindowLevel',
+              commandOptions: {
+                description: 'Subdural 2',
+                window: '4000',
+                level: '700',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+        },
+        {
+          id: '10',
+          title: 'Mediastino',
+          subtitle: '350 / 50',
+          type: 'action',
+          commands: [
+            {
+              commandName: 'setWindowLevel',
+              commandOptions: {
+                description: 'Subdural 2',
+                window: '350',
+                level: '50',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  // Pan...
+  {
+    id: 'Pan',
+    type: 'ohif.radioGroup',
+    props: {
+      type: 'tool',
+      icon: 'tool-move',
+      label: 'Pan',
+      commands: _createSetToolActiveCommands('Pan'),
+    },
+  },
+  // Zoom..
+  {
+    id: 'Zoom',
+    type: 'ohif.radioGroup',
+    props: {
+      type: 'tool',
+      icon: 'tool-zoom',
+      label: 'Zoom',
+      commands: _createSetToolActiveCommands('Zoom'),
+    },
+  },
+  // Capture
+  {
+    id: 'Capture',
+    type: 'ohif.action',
+    props: {
+      icon: 'tool-capture',
+      label: 'Capture',
+      type: 'action',
+      commands: [
+        {
+          commandName: 'showDownloadViewportModal',
+          commandOptions: {},
+          context: 'CORNERSTONE',
+        },
+      ],
+    },
+  },
+  // Layout
+  {
+    id: 'Layout',
+    type: 'ohif.layoutSelector',
+    props: {
+      rows: 4,
+      columns: 4,
+    },
+  },
+  // MPR
+  {
+    id: 'MPR',
+    type: 'ohif.action',
+    props: {
+      type: 'toggle',
+      icon: 'icon-mpr',
+      label: 'MPR',
+      commands: [
+        {
+          commandName: 'toggleHangingProtocol',
+          commandOptions: {
+            protocolId: 'mpr',
+          },
+          context: 'DEFAULT',
+        },
+      ],
+    },
+  },
+  // Volumen 3D
+  {
+    id: 'MprAnd3DVolumeViewport',
+    type: 'ohif.action',
+    props: {
+      type: 'toggle',
+      icon: 'icon-mpr',
+      label: 'Volumen 3D',
+      commands: [
+        {
+          commandName: 'toggleHangingProtocol',
+          commandOptions: {
+            protocolId: 'mprAnd3DVolumeViewport',
+          },
+          context: 'DEFAULT',
+        },
+      ],
+    },
+  },
+  // Crosshairs
+  {
+    id: 'Crosshairs',
+    type: 'ohif.radioGroup',
+    props: {
+      type: 'tool',
+      icon: 'tool-crosshair',
+      label: 'Crosshairs',
+      commands: [
+        {
+          commandName: 'setToolActive',
+          commandOptions: {
+            toolName: 'Crosshairs',
+            toolGroupId: 'mpr',
+          },
+          context: 'CORNERSTONE',
+        },
+      ],
+    },
+  },
+  // RotateTools
+  {
+    id: 'RotateTools',
+    type: 'ohif.radioGroup',
+    props: {
+      type: 'tool', // ?
+      icon: 'tool-rotate-right',
+      label: 'Rotate Right',
+      commands: [
+        {
+          commandName: 'rotateViewportCW', //'rotateViewportCW',
+          commandOptions: {},
+          context: 'CORNERSTONE',
+        },
+      ],
+    },
+  },
+  // MagnifyTool
+  {
+    id: 'MagnifyTool',
+    type: 'ohif.radioGroup',
+    props: {
+      type: 'tool',
+      icon: 'tool-magnify',
+      label: 'Magnify',
+      commands: [
+        {
+          commandName: 'setToolActive',
+          commandOptions: {
+            toolName: 'Magnify',
+          },
+          context: 'CORNERSTONE',
+        },
+      ],
+    },
+  },
+  // StackScrollTool
+  {
+    id: 'StackScrollTool',
+    type: 'ohif.radioGroup',
+    props: {
+      type: 'tool',
+      icon: 'tool-stack-scroll',
+      label: 'Stack Scroll',
+      commands: [
+        {
+          commandName: 'setToolActive',
+          commandOptions: {
+            toolName: 'StackScroll',
+          },
+          context: 'CORNERSTONE',
+        },
+      ],
+    },
+  },
   // Measurement
   {
     id: 'MeasurementTools',
@@ -140,50 +441,57 @@ const toolbarButtons = [
           'Length Tool'
         ),
         _createToolButton(
-          'Bidirectional',
-          'tool-bidirectional',
-          'Bidirectional',
+          'Angle',
+          'tool-angle',
+          'Angle',
           [
             {
               commandName: 'setToolActive',
               commandOptions: {
-                toolName: 'Bidirectional',
-              },
-              context: 'CORNERSTONE',
-            },
-            {
-              commandName: 'setToolActive',
-              commandOptions: {
-                toolName: 'SRBidirectional',
-                toolGroupId: 'SRToolGroup',
+                toolName: 'Angle',
               },
               context: 'CORNERSTONE',
             },
           ],
-          'Bidirectional Tool'
+          'Angle'
         ),
         _createToolButton(
-          'ArrowAnnotate',
-          'tool-annotate',
-          'Annotation',
+          'Cobb Angle',
+          'tool-angle',
+          'Cobb Angle',
           [
             {
               commandName: 'setToolActive',
               commandOptions: {
-                toolName: 'ArrowAnnotate',
+                toolName: 'CobbAngle',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+          'Cobb Angle'
+        ),
+        _createToolButton(
+          'CircleROI',
+          'tool-circle',
+          'Circle',
+          [
+            {
+              commandName: 'setToolActive',
+              commandOptions: {
+                toolName: 'CircleROI',
               },
               context: 'CORNERSTONE',
             },
             {
               commandName: 'setToolActive',
               commandOptions: {
-                toolName: 'SRArrowAnnotate',
+                toolName: 'SRCircleROI',
                 toolGroupId: 'SRToolGroup',
               },
               context: 'CORNERSTONE',
             },
           ],
-          'Arrow Annotate'
+          'Circle Tool'
         ),
         _createToolButton(
           'EllipticalROI',
@@ -209,149 +517,81 @@ const toolbarButtons = [
           'Ellipse Tool'
         ),
         _createToolButton(
-          'CircleROI',
-          'tool-circle',
-          'Circle',
+          'Rectangle',
+          'tool-rectangle',
+          'Rectangle',
           [
             {
               commandName: 'setToolActive',
               commandOptions: {
-                toolName: 'CircleROI',
+                toolName: 'RectangleROI',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+          'Rectangle'
+        ),
+        _createToolButton(
+          'Planar Freehand ROI',
+          'dotted-circle',
+          'PlanarFreehandROI',
+          [
+            {
+              commandName: 'setToolActive',
+              commandOptions: {
+                toolName: 'PlanarFreehandROI',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+          'Planar Freehand ROI'
+        ),
+        _createToolButton(
+          'ArrowAnnotate',
+          'tool-annotate',
+          'Annotation',
+          [
+            {
+              commandName: 'setToolActive',
+              commandOptions: {
+                toolName: 'ArrowAnnotate',
               },
               context: 'CORNERSTONE',
             },
             {
               commandName: 'setToolActive',
               commandOptions: {
-                toolName: 'SRCircleROI',
+                toolName: 'SRArrowAnnotate',
                 toolGroupId: 'SRToolGroup',
               },
               context: 'CORNERSTONE',
             },
           ],
-          'Circle Tool'
+          'Arrow Annotate'
         ),
-      ],
-    },
-  },
-  // Zoom..
-  {
-    id: 'Zoom',
-    type: 'ohif.radioGroup',
-    props: {
-      type: 'tool',
-      icon: 'tool-zoom',
-      label: 'Zoom',
-      commands: _createSetToolActiveCommands('Zoom'),
-    },
-  },
-  // Window Level + Presets...
-  {
-    id: 'WindowLevel',
-    type: 'ohif.splitButton',
-    props: {
-      groupId: 'WindowLevel',
-      primary: _createToolButton(
-        'WindowLevel',
-        'tool-window-level',
-        'Window Level',
-        [
-          {
-            commandName: 'setToolActive',
-            commandOptions: {
-              toolName: 'WindowLevel',
+        _createToolButton(
+          'Bidirectional',
+          'tool-bidirectional',
+          'Bidirectional',
+          [
+            {
+              commandName: 'setToolActive',
+              commandOptions: {
+                toolName: 'Bidirectional',
+              },
+              context: 'CORNERSTONE',
             },
-            context: 'CORNERSTONE',
-          },
-        ],
-        'Window Level'
-      ),
-      secondary: {
-        icon: 'chevron-down',
-        label: 'W/L Manual',
-        isActive: true,
-        tooltip: 'W/L Presets',
-      },
-      isAction: true, // ?
-      renderer: WindowLevelMenuItem,
-      items: [
-        _createWwwcPreset(1, 'Soft tissue', '400 / 40'),
-        _createWwwcPreset(2, 'Lung', '1500 / -600'),
-        _createWwwcPreset(3, 'Liver', '150 / 90'),
-        _createWwwcPreset(4, 'Bone', '2500 / 480'),
-        _createWwwcPreset(5, 'Brain', '80 / 40'),
-      ],
-    },
-  },
-  // Pan...
-  {
-    id: 'Pan',
-    type: 'ohif.radioGroup',
-    props: {
-      type: 'tool',
-      icon: 'tool-move',
-      label: 'Pan',
-      commands: _createSetToolActiveCommands('Pan'),
-    },
-  },
-  {
-    id: 'Capture',
-    type: 'ohif.action',
-    props: {
-      icon: 'tool-capture',
-      label: 'Capture',
-      type: 'action',
-      commands: [
-        {
-          commandName: 'showDownloadViewportModal',
-          commandOptions: {},
-          context: 'CORNERSTONE',
-        },
-      ],
-    },
-  },
-  {
-    id: 'Layout',
-    type: 'ohif.layoutSelector',
-    props: {
-      rows: 3,
-      columns: 3,
-    },
-  },
-  {
-    id: 'MPR',
-    type: 'ohif.action',
-    props: {
-      type: 'toggle',
-      icon: 'icon-mpr',
-      label: 'MPR',
-      commands: [
-        {
-          commandName: 'toggleHangingProtocol',
-          commandOptions: {
-            protocolId: 'mpr',
-          },
-          context: 'DEFAULT',
-        },
-      ],
-    },
-  },
-  {
-    id: 'Crosshairs',
-    type: 'ohif.radioGroup',
-    props: {
-      type: 'tool',
-      icon: 'tool-crosshair',
-      label: 'Crosshairs',
-      commands: [
-        {
-          commandName: 'setToolActive',
-          commandOptions: {
-            toolName: 'Crosshairs',
-            toolGroupId: 'mpr',
-          },
-          context: 'CORNERSTONE',
-        },
+            {
+              commandName: 'setToolActive',
+              commandOptions: {
+                toolName: 'SRBidirectional',
+                toolGroupId: 'SRToolGroup',
+              },
+              context: 'CORNERSTONE',
+            },
+          ],
+          'Bidirectional Tool'
+        ),
       ],
     },
   },
@@ -396,19 +636,6 @@ const toolbarButtons = [
           'Reset'
         ),
         _createActionButton(
-          'rotate-right',
-          'tool-rotate-right',
-          'Rotate Right',
-          [
-            {
-              commandName: 'rotateViewportCW',
-              commandOptions: {},
-              context: 'CORNERSTONE',
-            },
-          ],
-          'Rotate +90'
-        ),
-        _createActionButton(
           'flip-horizontal',
           'tool-flip-horizontal',
           'Flip Horizontally',
@@ -439,21 +666,6 @@ const toolbarButtons = [
               context: 'CORNERSTONE',
             },
           ]
-        ),
-        _createToolButton(
-          'StackScroll',
-          'tool-stack-scroll',
-          'Stack Scroll',
-          [
-            {
-              commandName: 'setToolActive',
-              commandOptions: {
-                toolName: 'StackScroll',
-              },
-              context: 'CORNERSTONE',
-            },
-          ],
-          'Stack Scroll'
         ),
         _createActionButton(
           'invert',
@@ -494,83 +706,6 @@ const toolbarButtons = [
             },
           ],
           'Cine'
-        ),
-        _createToolButton(
-          'Angle',
-          'tool-angle',
-          'Angle',
-          [
-            {
-              commandName: 'setToolActive',
-              commandOptions: {
-                toolName: 'Angle',
-              },
-              context: 'CORNERSTONE',
-            },
-          ],
-          'Angle'
-        ),
-
-        // Next two tools can be added once icons are added
-        // _createToolButton(
-        //   'Cobb Angle',
-        //   'tool-cobb-angle',
-        //   'Cobb Angle',
-        //   [
-        //     {
-        //       commandName: 'setToolActive',
-        //       commandOptions: {
-        //         toolName: 'CobbAngle',
-        //       },
-        //       context: 'CORNERSTONE',
-        //     },
-        //   ],
-        //   'Cobb Angle'
-        // ),
-        // _createToolButton(
-        //   'Planar Freehand ROI',
-        //   'tool-freehand',
-        //   'PlanarFreehandROI',
-        //   [
-        //     {
-        //       commandName: 'setToolActive',
-        //       commandOptions: {
-        //         toolName: 'PlanarFreehandROI',
-        //       },
-        //       context: 'CORNERSTONE',
-        //     },
-        //   ],
-        //   'Planar Freehand ROI'
-        // ),
-        _createToolButton(
-          'Magnify',
-          'tool-magnify',
-          'Magnify',
-          [
-            {
-              commandName: 'setToolActive',
-              commandOptions: {
-                toolName: 'Magnify',
-              },
-              context: 'CORNERSTONE',
-            },
-          ],
-          'Magnify'
-        ),
-        _createToolButton(
-          'Rectangle',
-          'tool-rectangle',
-          'Rectangle',
-          [
-            {
-              commandName: 'setToolActive',
-              commandOptions: {
-                toolName: 'RectangleROI',
-              },
-              context: 'CORNERSTONE',
-            },
-          ],
-          'Rectangle'
         ),
         _createToolButton(
           'CalibrationLine',

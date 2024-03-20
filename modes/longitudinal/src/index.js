@@ -121,13 +121,17 @@ function modeFactory() {
       toolbarService.init(extensionManager);
       toolbarService.addButtons(toolbarButtons);
       toolbarService.createButtonSection('primary', [
-        'MeasurementTools',
-        'Zoom',
         'WindowLevel',
         'Pan',
-        'Capture',
+        'Zoom',
+        'RotateTools',
+        'MagnifyTool',
+        'StackScrollTool',
+        'MeasurementTools',
         'Layout',
         'MPR',
+        'MprAnd3DVolumeViewport',
+        'Capture',
         'Crosshairs',
         'MoreTools',
       ]);
