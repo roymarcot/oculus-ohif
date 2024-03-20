@@ -56,33 +56,8 @@ const AboutModal = ({ buildNumber, versionNumber }) => {
   );
   return (
     <div>
-      {renderRowTitle('Important Links')}
-      <div className="flex mb-8">
-        <Link href="https://community.ohif.org/" showIcon={true}>
-          Visit the forum
-        </Link>
-        <span className="ml-4">
-          <Link
-            href="https://github.com/OHIF/Viewers/issues/new/choose"
-            showIcon={true}
-          >
-            Report an issue
-          </Link>
-        </span>
-        <span className="ml-4">
-          <Link href="https://ohif.org/" showIcon={true}>
-            More details
-          </Link>
-        </span>
-      </div>
-
       {renderRowTitle('Version Information')}
       <div className="flex flex-col">
-        <Row
-          title="Repository URL"
-          value="https://github.com/OHIF/Viewers/tree/v3-stable"
-          link="https://github.com/OHIF/Viewers/tree/v3-stable"
-        />
         {/* <Row
           title="Last Master Commits"
           value="https://github.com/OHIF/Viewers/tree/v3-stable"
